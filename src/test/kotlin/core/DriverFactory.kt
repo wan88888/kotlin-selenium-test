@@ -11,7 +11,7 @@ import java.time.Duration
 object DriverFactory {
     private var driver: WebDriver? = null
     
-    fun getDriver(browserType: String = "chrome"): WebDriver {
+    fun getDriver(browserType: String = ConfigReader.getDefaultBrowser()): WebDriver {
         if (driver == null) {
             driver = createDriver(browserType)
             setupDriver(driver!!)
@@ -44,7 +44,8 @@ object DriverFactory {
     }
     
     private fun setupDriver(driver: WebDriver) {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10))
+        val implicitWait = ConfigReader.getImplicitWait()
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(implicitWait))
         driver.manage().window().maximize()
     }
     

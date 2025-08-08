@@ -40,4 +40,17 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    
+    // 测试报告配置
+    reports {
+        html.required = true
+        junitXml.required = true
+    }
+    
+    // 测试输出配置
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = false
+    }
 }

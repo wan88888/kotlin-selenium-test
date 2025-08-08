@@ -22,4 +22,21 @@ object ConfigReader {
     }
     
     fun getBaseUrl(): String = getProperty("baseUrl")
+    
+    fun getDefaultBrowser(): String = getProperty("defaultBrowser")
+    
+    fun getImplicitWait(): Long = getProperty("implicitWait").toLong()
+    
+    fun getExplicitWait(): Long = getProperty("explicitWait").toLong()
+    
+    // 智能等待配置
+    fun getSmartWaitPollingInterval(): Long = getProperty("smartWaitPollingInterval").toLong()
+    
+    fun getSmartWaitMaxRetries(): Int = getProperty("smartWaitMaxRetries").toInt()
+    
+    fun getFastWaitTimeout(): Long = getProperty("fastWaitTimeout").toLong()
+    
+    fun getMediumWaitTimeout(): Long = getProperty("mediumWaitTimeout").toLong()
+    
+    fun getLongWaitTimeout(): Long = getProperty("longWaitTimeout").toLong()
 }

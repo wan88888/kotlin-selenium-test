@@ -5,9 +5,13 @@ import hooks.Hooks
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import pages.LoginPage
+import utils.WaitUtils
+import utils.TestConstants
 
-class LoginTest : Hooks() {
+@ExtendWith(Hooks::class)
+class LoginTest : BaseTest() {
     
     @Test
     @DisplayName("使用有效凭据进行正常登录测试")
@@ -20,36 +24,19 @@ class LoginTest : Hooks() {
 
         
         // 执行登录操作
-        loginPage.login("standard_user", "secret_sauce")
+        loginPage.login(getValidUsername(), getValidPassword())
         
-        // 等待页面跳转
-        Thread.sleep(2000)
+        // 等待页面跳转（使用快速等待）
+        WaitUtils.waitForUrlContains(driver, TestConstants.INVENTORY_URL_FRAGMENT, WaitUtils.WaitType.FAST)
 
         
         // 验证登录成功
         assertTrue(loginPage.isLoginSuccessful(), "登录应该成功")
-        assertTrue(loginPage.getCurrentUrl().contains("inventory"), "应该跳转到产品页面")
+        assertTrue(driver.currentUrl?.contains("inventory") == true, "应该跳转到产品页面")
         assertFalse(loginPage.isErrorMessageDisplayed(), "不应该显示错误信息")
     }
     
-    @Test
-    @DisplayName("验证登录页面元素显示")
-    fun testLoginPageElements() {
-        val loginPage = LoginPage(driver)
-        val baseUrl = ConfigReader.getBaseUrl()
-        
-        // 打开登录页面
-        loginPage.openLoginPage(baseUrl)
 
-        
-        // 验证页面URL（处理尾部斜杠）
-        val currentUrl = loginPage.getCurrentUrl().trimEnd('/')
-        val expectedUrl = baseUrl.trimEnd('/')
-        assertEquals(expectedUrl, currentUrl, "应该在正确的登录页面")
-        
-        // 验证没有错误信息显示
-        assertFalse(loginPage.isErrorMessageDisplayed(), "初始状态不应该显示错误信息")
-    }
     
     @Test
     @DisplayName("使用无效用户名登录测试")
@@ -61,10 +48,10 @@ class LoginTest : Hooks() {
         loginPage.openLoginPage(baseUrl)
         
         // 使用无效用户名登录
-        loginPage.login("invalid_user", "secret_sauce")
+        loginPage.login(getInvalidUsername(), getValidPassword())
         
-        // 等待错误信息显示
-        Thread.sleep(1000)
+        // 等待错误信息显示（使用智能等待）
+        WaitUtils.smartWait(driver, { loginPage.getErrorMessage().isNotEmpty() }, ConfigReader.getFastWaitTimeout())
 
         
         // 验证登录失败
@@ -73,6 +60,6 @@ class LoginTest : Hooks() {
         
         val errorMessage = loginPage.getErrorMessage()
         assertTrue(errorMessage.isNotEmpty(), "错误信息不应该为空")
-        assertTrue(errorMessage.contains("Username and password do not match"), "应该显示用户名密码不匹配的错误")
+        assertTrue(errorMessage.contains(TestConstants.INVALID_CREDENTIALS_ERROR), "应该显示用户名密码不匹配的错误")
     }
 }

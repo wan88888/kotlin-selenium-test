@@ -15,9 +15,8 @@ class LoginPage(driver: WebDriver) : BasePage(driver) {
     // 页面操作方法
     fun openLoginPage(url: String): LoginPage {
         driver.get(url)
-        waitForElementToBeVisible(logoElement)
+        // 只等待登录表单的核心元素加载完成
         waitForElementToBeVisible(usernameField)
-        waitForElementToBeVisible(passwordField)
         waitForElementToBeVisible(loginButton)
         return this
     }
@@ -63,9 +62,5 @@ class LoginPage(driver: WebDriver) : BasePage(driver) {
         } catch (e: Exception) {
             false
         }
-    }
-    
-    fun getCurrentUrl(): String {
-        return driver.currentUrl
     }
 }

@@ -1,20 +1,21 @@
 package hooks
 
 import core.DriverFactory
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.extension.BeforeEachCallback
+import org.junit.jupiter.api.extension.AfterEachCallback
+import org.junit.jupiter.api.extension.ExtensionContext
 import org.openqa.selenium.WebDriver
 
-open class Hooks {
-    protected lateinit var driver: WebDriver
-    
-    @BeforeEach
-    fun setUp() {
-        driver = DriverFactory.getDriver("chrome")
+class Hooks : BeforeEachCallback, AfterEachCallback {
+    companion object {
+        @JvmStatic
+        lateinit var driver: WebDriver
+    }
+    override fun beforeEach(context: ExtensionContext?) {
+        driver = DriverFactory.getDriver()
     }
     
-    @AfterEach
-    fun tearDown() {
+    override fun afterEach(context: ExtensionContext?) {
         try {
             DriverFactory.quitDriver()
         } catch (e: Exception) {
