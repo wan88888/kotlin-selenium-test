@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DepsLocalSettings">
+    <option name="repoId" value="" />
+    <option name="repoUrl" value="" />
+  </component>
+  <component name="DepsProjectSettings">
+    <option name="cljConfigPath" value="" />
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="LeiningenLocalSettings">
+    <option name="availableVersions">
+      <list>
+        <option value="2.11.2" />
+        <option value="2.11.1" />
+        <option value="2.11.0" />
+        <option value="2.10.0" />
+        <option value="2.9.10" />
+        <option value="2.9.9" />
+        <option value="2.9.8" />
+        <option value="2.9.7" />
+        <option value="2.9.6" />
+        <option value="2.9.5" />
+      </list>
+    </option>
+  </component>
+  <component name="LeiningenProjectSettings">
+    <option name="leiningenVersion" value="2.11.0" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Package Search</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Angular</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

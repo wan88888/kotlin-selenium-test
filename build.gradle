@@ -1,0 +1,43 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.20'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.11.3'
+}
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+[compileKotlin, compileTestKotlin].forEach {
+    it.kotlinOptions {
+        jvmTarget = '17'
+    }
+}
+
+dependencies {
+    testImplementation('org.seleniumhq.selenium:selenium-java:4.25.0')
+    testImplementation('org.slf4j:slf4j-simple:2.0.16')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    
+    // WebDriver Manager for automatic driver management
+    testImplementation('io.github.bonigarcia:webdrivermanager:5.6.2')
+}
+
+test {
+    useJUnitPlatform()
+}
